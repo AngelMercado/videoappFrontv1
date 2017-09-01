@@ -1,4 +1,4 @@
-!node_modules/
 node_modules/*
-!typings/
 typings/*
+.org.chromium
+angular2rc3/.org.chromium.Chromium.ZJAhLP
