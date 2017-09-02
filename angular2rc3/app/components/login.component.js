@@ -13,11 +13,22 @@ var core_1 = require('@angular/core');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var LoginComponent = (function () {
     function LoginComponent() {
+        this.title = "Formulario de Login";
     }
+    LoginComponent.prototype.ngOnInit = function () {
+        this.user = {
+            "email": "",
+            "password": "",
+            "gethash": false
+        };
+    };
+    LoginComponent.prototype.onSubmit = function () {
+        console.log(this.user);
+    };
     LoginComponent = __decorate([
         core_1.Component({
             selector: 'login',
-            template: '<h1>Formulario de Login</h1>'
+            templateUrl: 'app/view/login.html'
         }), 
         __metadata('design:paramtypes', [])
     ], LoginComponent);

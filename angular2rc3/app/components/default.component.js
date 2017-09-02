@@ -17,7 +17,7 @@ var DefaultComponent = (function () {
     DefaultComponent = __decorate([
         core_1.Component({
             selector: 'default',
-            template: '<h1>Componente por defecto</h1>'
+            template: '<h1>Default</h1>'
         }), 
         __metadata('design:paramtypes', [])
     ], DefaultComponent);
