@@ -10,20 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // Importar el núcleo de Angular
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
-var AppComponent = (function () {
-    function AppComponent() {
+var RegisterComponent = (function () {
+    function RegisterComponent() {
     }
-    AppComponent = __decorate([
+    RegisterComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: '<h1>Hola mundo con Angula</h1> <router-outlet></router-outlet>',
-            directives: [router_1.ROUTER_DIRECTIVES]
+            selector: 'register',
+            template: '<h1>Formulario de Resgitro</h1>'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], RegisterComponent);
+    return RegisterComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.RegisterComponent = RegisterComponent;
+//# sourceMappingURL=register.component.js.map
