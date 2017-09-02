@@ -6,7 +6,7 @@ import {ROUTER_DIRECTIVES, Router, ActivatedRoute} from '@angular/router';
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 @Component({
     selector: 'my-app',
-    template: '<h1>Hola mundo con Angula</h1> <router-outlet></router-outlet>',
+    templateUrl: 'app/view/layout.html',
     directives: [ROUTER_DIRECTIVES]
 })
  

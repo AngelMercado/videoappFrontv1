@@ -12,16 +12,24 @@
     <script src="node_modules/zone.js/dist/zone.js"></script>
     <script src="node_modules/reflect-metadata/Reflect.js"></script>
     <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>    
+
     <!-- 2. Configure SystemJS -->
     <script src="systemjs.config.js"></script>
     <script>
       System.import('app').catch(function(err){ console.error(err); });
     </script>
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">    
     <link rel="stylesheet" type="text/css" href="assets/css/lumen-bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css//style.css">
   </head>
   <!-- 3. Display the application -->
   <body>
-    <my-app>Cargando...</my-app>
+    <div class="contaainer">
+    	<my-app>Cargando...</my-app>
+    </div>
+
+    
   </body>
 </html>
