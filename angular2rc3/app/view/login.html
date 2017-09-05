@@ -2,7 +2,14 @@
 	<hr/>
 	<h1>{{title}}</h1>
 	<hr/>
-
+	<div class="identity-data" *ngIf="identity">
+		<div class="user-identity alert alert-success" *ngIf="identity.email">
+			Bienvenido {{identity.name}}
+		</div>	
+		<div class="user-identity alert alert-danger" *ngIf="identity.status == 'error'">
+			Usario o contraseña incorrecta
+		</div>
+	</div>
 	<form #loginForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4">
 		
 		<p><label>Email: </label></p>

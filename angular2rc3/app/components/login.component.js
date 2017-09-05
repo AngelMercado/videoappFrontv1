@@ -11,14 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // Importar el núcleo de Angular
 var core_1 = require('@angular/core');
 var login_service_1 = require('../service/login.service');
+var router_1 = require('@angular/router');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var LoginComponent = (function () {
-    function LoginComponent(_loginService) {
+    function LoginComponent(_loginService, _route, _router) {
         this._loginService = _loginService;
+        this._route = _route;
+        this._router = _router;
         this.title = "Formulario de Login";
         this.errorMessage = "";
     }
     LoginComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._route.params.subscribe(function (params) {
+            var logout = +params["id"];
+            if (logout == 1) {
+                localStorage.removeItem('identity');
+                localStorage.removeItem('token');
+                _this.identity = null;
+                _this.token = null;
+                //this._router.navigate(["/index"]);
+                window.location.href = "/login";
+            }
+        });
         this.user = {
             "email": "",
             "password": "",
@@ -54,6 +69,9 @@ var LoginComponent = (function () {
                         else {
                             if (!_this.token.status) {
                                 localStorage.setItem('token', JSON.stringify(token));
+                                //console.log(localStorage.getItem("token"));
+                                //REDIRECT SUCESS LOGIN
+                                window.location.href = "/";
                             }
                         }
                     }, function (error) {
@@ -77,7 +95,7 @@ var LoginComponent = (function () {
             templateUrl: 'app/view/login.html',
             providers: [login_service_1.LoginService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService])
+        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
     ], LoginComponent);
     return LoginComponent;
 }());
