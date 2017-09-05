@@ -1,0 +1,10 @@
+<div class="col-md-12">
+	<hr/>
+	<h1>{{title}}</h1>
+	<div *ngIf = " ! identity || identity == null">
+		Inicia Sesion para acceder a más opciones
+	</div>
+	<div *ngIf=" identity || identity !=null">
+		Bienvenido {{identity.name}}, <a [routerLink] = "['/index']">entra en tu canal</a> o <a [routerLink]="['/index']">Sube un video</a>
+	</div>
+</div>
