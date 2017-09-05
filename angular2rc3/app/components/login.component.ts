@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit{
 	private token;
 	constructor(private _loginService:LoginService, private _route:ActivatedRoute, private _router:Router){}
 	ngOnInit(){
-
+		
 		this._route.params.subscribe(params => {
 			let logout = +params["id"];
 			
@@ -39,10 +39,12 @@ export class LoginComponent implements OnInit{
 			"password": "",
 			"gethash": false
 		}
-		let ide = this._loginService.getIdentity();
-		let tk = this._loginService.getToken();
-		console.log(ide);
-		console.log(tk);
+
+		//redirect index view in case user is authenticated		
+		let identity = this._loginService.getIdentity(); 
+		if(identity != null && identity.sub ){
+			this._router.navigate(["/index"]);
+		}
 
 	}
 	

@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" *ngIf="!identity">
 	<hr/>
 	<h1>{{title}}</h1>
 	<hr/>
@@ -10,7 +10,7 @@
 			Usario o contraseña incorrecta
 		</div>
 	</div>
-	<form #loginForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4">
+	<form #loginForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4" >
 		
 		<p><label>Email: </label></p>
 		<input  type="email" class="form-control" #email="ngForm" ngControl="email" [(ngModel)] = "user.email" required="">
