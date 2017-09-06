@@ -1,13 +1,29 @@
 // Importar el núcleo de Angular
 import {Component ,OnInit} from '@angular/core';
- 
+import {LoginService} from '../service/login.service';
+import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
+import { User } from '../model/user';
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 @Component({
     selector: 'register',
-    template: '<h1>Formulario de Resgitro</h1>'
+    templateUrl : 'app/view/register.html',
+    directives[ROUTER_DIRECTIVES],
+    providers: [LoginService]
 })
  
 // Clase del componente donde irán los datos y funcionalidades
-export class RegisterComponent { 
+export class RegisterComponent implements OnInit{ 
+	public title:string = "Registro de usuario";
+	public user:User;
 	
+	constructor(
+		private _loginService :  LoginService,
+		private _route : ActivatedRoute,
+		private _router : Router
+		){}
+
+	ngOnInit(){
+		this.user = new User(1,"user","","","","","null");
+	}
+
 }

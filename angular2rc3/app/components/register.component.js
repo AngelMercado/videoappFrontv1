@@ -10,16 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // Importar el núcleo de Angular
 var core_1 = require('@angular/core');
+var login_service_1 = require('../service/login.service');
+var router_1 = require('@angular/router');
+var user_1 = require('../model/user');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var RegisterComponent = (function () {
-    function RegisterComponent() {
+    function RegisterComponent(_loginService, _route, _router) {
+        this._loginService = _loginService;
+        this._route = _route;
+        this._router = _router;
+        this.title = "Registro de usuario";
     }
+    RegisterComponent.prototype.ngOnInit = function () {
+        this.user = new user_1.User(1, "user", "", "", "", "", "null");
+    };
     RegisterComponent = __decorate([
         core_1.Component({
             selector: 'register',
-            template: '<h1>Formulario de Resgitro</h1>'
+            templateUrl: 'app/view/register.html',
+            directives: [router_1.ROUTER_DIRECTIVES],
+            providers: [login_service_1.LoginService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
     ], RegisterComponent);
     return RegisterComponent;
 }());
