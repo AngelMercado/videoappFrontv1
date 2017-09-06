@@ -10,13 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // Importar el núcleo de Angular
 var core_1 = require('@angular/core');
-var login_service_1 = require('../service/login.service');
+var register_service_1 = require('../service/register.service');
 var router_1 = require('@angular/router');
 var user_1 = require('../model/user');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var RegisterComponent = (function () {
-    function RegisterComponent(_loginService, _route, _router) {
-        this._loginService = _loginService;
+    function RegisterComponent(_registerService, _route, _router) {
+        this._registerService = _registerService;
         this._route = _route;
         this._router = _router;
         this.title = "Registro de usuario";
@@ -24,14 +24,32 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.ngOnInit = function () {
         this.user = new user_1.User(1, "user", "", "", "", "", "null");
     };
+    RegisterComponent.prototype.onSubmit = function () {
+        var _this = this;
+        console.log(this.user);
+        this._registerService.register(this.user).subscribe(function (response) {
+            _this.status = response.status;
+            if (_this.status != "success") {
+                _this.status == "error";
+            }
+            else {
+                console.log("user register");
+            }
+        }, function (error) {
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log("Error en la peticion");
+            }
+        });
+    };
     RegisterComponent = __decorate([
         core_1.Component({
             selector: 'register',
             templateUrl: 'app/view/register.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [register_service_1.RegisterService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [register_service_1.RegisterService, router_1.ActivatedRoute, router_1.Router])
     ], RegisterComponent);
     return RegisterComponent;
 }());
