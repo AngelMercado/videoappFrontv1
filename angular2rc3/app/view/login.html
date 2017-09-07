@@ -1,14 +1,11 @@
 <div class="col-md-12" *ngIf="!identity">
 	<hr/>
-	<h1>{{title}}</h1>
+	<h1>{{title}}</h1>	
 	<hr/>
-	<div class="identity-data" *ngIf="identity">
-		<div class="user-identity alert alert-success" *ngIf="identity.email">
-			Bienvenido {{identity.name}}
-		</div>	
-		<div class="user-identity alert alert-danger" *ngIf="identity.status == 'error'">
+	<div class="identity-data" *ngIf="errorMesagge != ''">		
+		<div class="user-identity alert alert-danger" *ngIf="errorMessage != ''">
 			Usario o contraseña incorrecta
-		</div>
+		</div>		
 	</div>
 	<form #loginForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4" >
 		

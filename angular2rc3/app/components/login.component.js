@@ -20,6 +20,7 @@ var LoginComponent = (function () {
         this._router = _router;
         this.title = "Formulario de Login";
         this.errorMessage = "";
+        this.sucessMessage = "";
     }
     LoginComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -47,43 +48,49 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
+        console.log("enviando peticion");
         this._loginService.signup(this.user).subscribe(function (response) {
-            var identity = response;
-            _this.identity = identity;
-            if (_this.identity.length <= 0) {
-                alert("error en la autenticación");
+            var res = response;
+            _this.status = (res.status != null) ? res.status : null;
+            _this.data = (res.data != null) ? res.data : null;
+            if (_this.status != null || _this.status == "error") {
+                console.log("Service responses a error");
+                console.table(res);
+                _this.errorMessage = "invalid user or password";
             }
             else {
-                //VERIFY DONT RETURN SOMETHING DIFERENT TO IDENTY
-                if (!_this.identity.status) {
-                    //SAVE IDENTITY IN STORAGE
-                    localStorage.setItem('identity', JSON.stringify(identity));
-                    //console.log(localStorage.getItem("identity"));
-                    //GET TOKEN FROM LOGIN SERVICE								
-                    _this.user.gethash = true;
-                    _this._loginService.signup(_this.user).subscribe(function (response) {
-                        var token = response;
-                        _this.token = token;
-                        if (_this.token.length <= 0) {
-                            alert("error en el servidor");
+                //THE RESPONSE IS A IDENTITY OBJECT
+                var identity = response;
+                _this.successMessage = "Haz accedido con exito";
+                console.log("saving identity in localStorage");
+                //SAVE IDENTITY IN STORAGE
+                localStorage.setItem('identity', JSON.stringify(identity));
+                //console.log(localStorage.getItem("identity"));
+                //GET TOKEN FROM LOGIN SERVICE								
+                _this.user.gethash = true;
+                _this._loginService.signup(_this.user).subscribe(function (response) {
+                    var token = response;
+                    _this.token = token;
+                    if (_this.token.length <= 0) {
+                        alert("error en el servidor");
+                    }
+                    else {
+                        if (!_this.token.status) {
+                            localStorage.setItem('token', JSON.stringify(token));
+                            //console.log(localStorage.getItem("token"));
+                            //REDIRECT SUCESS LOGIN
+                            window.location.href = "/";
                         }
-                        else {
-                            if (!_this.token.status) {
-                                localStorage.setItem('token', JSON.stringify(token));
-                                //console.log(localStorage.getItem("token"));
-                                //REDIRECT SUCESS LOGIN
-                                window.location.href = "/";
-                            }
-                        }
-                    }, function (error) {
-                        _this.errorMessage = error;
-                        if (_this.errorMessage != null) {
-                            console.log("Error en la peticion");
-                        }
-                    });
-                }
+                    }
+                }, function (error) {
+                    _this.errorMessage = error;
+                    if (_this.errorMessage != null) {
+                        console.log("Error en la peticion");
+                    }
+                });
             }
         }, function (error) {
+            console.log("Error en la peticion");
             _this.errorMessage = error;
             if (_this.errorMessage != null) {
                 console.log("Error en la peticion");

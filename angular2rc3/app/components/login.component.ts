@@ -15,8 +15,12 @@ export class LoginComponent implements OnInit{
 	public title:string = "Formulario de Login";
 	public user;
 	public errorMessage:string ="";
+	public sucessMessage:string="";
 	public identity;
+	public data;
+	public status;
 	private token;
+
 	constructor(private _loginService:LoginService, private _route:ActivatedRoute, private _router:Router){}
 	ngOnInit(){
 		
@@ -49,19 +53,25 @@ export class LoginComponent implements OnInit{
 	}
 	
 	onSubmit(){		
-
+		console.log("enviando peticion");
 		this._loginService.signup(this.user).subscribe(
-				response => {
+				response => {					
+						let res= response;	
+						this.status = (res.status != null) ? res.status:null;
+						this.data = (res.data != null) ? res.data:null;																	
 						
-						let identity = response;
-						this.identity = identity;
-						
-						if(this.identity.length <= 0 ){
-							alert("error en la autenticación");
+						if(this.status != null || this.status =="error"){
+							console.log("Service responses a error");		
+							console.table(res);
+							this.errorMessage = "invalid user or password";
+							
 						}
 						else{
-							//VERIFY DONT RETURN SOMETHING DIFERENT TO IDENTY
-							if(!this.identity.status){
+							//THE RESPONSE IS A IDENTITY OBJECT
+								let identity = response;
+								this.successMessage = "Haz accedido con exito";
+								console.log("saving identity in localStorage");
+								
 								//SAVE IDENTITY IN STORAGE
 								localStorage.setItem('identity',JSON.stringify(identity));
 								//console.log(localStorage.getItem("identity"));
@@ -74,7 +84,7 @@ export class LoginComponent implements OnInit{
 										this.token = token;
 
 										if(this.token.length <=0){
-											alert("error en el servidor")
+											alert("error en el servidor");
 										}else{
 											if(!this.token.status){
 												localStorage.setItem('token',JSON.stringify(token));
@@ -93,10 +103,11 @@ export class LoginComponent implements OnInit{
 
 								);								
 								
-							}
+							
 						}
 					},
 				error => {
+					console.log("Error en la peticion");					
 					this.errorMessage = <any> error;
 					if(this.errorMessage != null){
 						console.log("Error en la peticion");
