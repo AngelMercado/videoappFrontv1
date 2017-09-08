@@ -11,26 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 // Importar el núcleo de Angular
 var core_1 = require('@angular/core');
 var user_service_1 = require('../service/user.service');
+var login_service_1 = require('../service/login.service');
 var router_1 = require('@angular/router');
 var user_1 = require('../model/user');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
-var RegisterComponent = (function () {
-    function RegisterComponent(_UserService, _route, _router) {
-        this._UserService = _UserService;
+var UserEditComponent = (function () {
+    function UserEditComponent(_loginService, _userService, _route, _router) {
+        this._loginService = _loginService;
+        this._userService = _userService;
         this._route = _route;
         this._router = _router;
-        this.title = "Registro de usuario";
+        this.title = "Configuración de usuario";
     }
-    RegisterComponent.prototype.ngOnInit = function () {
-        this.user = new user_1.User(1, "user", "", "", "", "", "null");
+    UserEditComponent.prototype.ngOnInit = function () {
+        var identity = this._loginService.getIdentity();
+        if (identity == null) {
+            console.log("the identity doesn't exists");
+            this._router.navigate(["/index"]);
+        }
+        else {
+            console.log("identity exists");
+            this.user = new user_1.User(identity.sub, "user", identity.name, identity.surname, identity.email, identity.password, "null");
+        }
     };
-    RegisterComponent.prototype.onSubmit = function () {
+    UserEditComponent.prototype.onSubmit = function () {
         var _this = this;
         console.log(this.user);
-        this._UserService.register(this.user).subscribe(function (response) {
+        this._userService.update(this.user).subscribe(function (response) {
             _this.status = response.status;
             if (_this.status != "success") {
                 _this.status == "error";
+                console.log(response);
             }
             else {
                 console.log("user register");
@@ -42,16 +53,16 @@ var RegisterComponent = (function () {
             }
         });
     };
-    RegisterComponent = __decorate([
+    UserEditComponent = __decorate([
         core_1.Component({
             selector: 'register',
-            templateUrl: 'app/view/register.html',
+            templateUrl: 'app/view/user-edit.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [user_service_1.UserService]
+            providers: [user_service_1.UserService, login_service_1.LoginService]
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
-    ], RegisterComponent);
-    return RegisterComponent;
+        __metadata('design:paramtypes', [login_service_1.LoginService, user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
+    ], UserEditComponent);
+    return UserEditComponent;
 }());
-exports.RegisterComponent = RegisterComponent;
-//# sourceMappingURL=register.component.js.map
+exports.UserEditComponent = UserEditComponent;
+//# sourceMappingURL=user.edit.component.js.map

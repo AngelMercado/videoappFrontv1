@@ -11,23 +11,51 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
-var RegisterService = (function () {
-    function RegisterService(_http) {
+var UserService = (function () {
+    function UserService(_http) {
         this._http = _http;
         this.url = "http://localhost/videoapp/symphony/web/app_dev.php";
     }
-    RegisterService.prototype.register = function (user) {
+    UserService.prototype.register = function (user) {
         var json = JSON.stringify(user);
         var params = "json=" + json;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this._http.post(this.url + "/user/create", params, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    RegisterService = __decorate([
+    UserService.prototype.update = function (user) {
+        var json = JSON.stringify(user);
+        var params = "json=" + json + "&authorization=" + this.getToken();
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        console.log(params);
+        return this._http.post(this.url + "/user/update", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    UserService.prototype.getIdentity = function () {
+        var identity = JSON.parse(localStorage.getItem('identity'));
+        if (identity != "undefined") {
+            this.identity = identity;
+        }
+        else {
+            this.identity = null;
+        }
+        return this.identity;
+    };
+    UserService.prototype.getToken = function () {
+        var token = localStorage.getItem('token');
+        if (token != "undefined") {
+            this.token = token;
+        }
+        else {
+            this.token = null;
+        }
+        return this.token;
+    };
+    UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], RegisterService);
-    return RegisterService;
+    ], UserService);
+    return UserService;
 }());
-exports.RegisterService = RegisterService;
-//# sourceMappingURL=register.service.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

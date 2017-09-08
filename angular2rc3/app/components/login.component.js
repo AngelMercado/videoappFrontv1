@@ -20,7 +20,7 @@ var LoginComponent = (function () {
         this._router = _router;
         this.title = "Formulario de Login";
         this.errorMessage = "";
-        this.sucessMessage = "";
+        this.successMessage = "";
     }
     LoginComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -48,14 +48,13 @@ var LoginComponent = (function () {
     };
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
-        console.log("enviando peticion");
         this._loginService.signup(this.user).subscribe(function (response) {
             var res = response;
             _this.status = (res.status != null) ? res.status : null;
             _this.data = (res.data != null) ? res.data : null;
             if (_this.status != null || _this.status == "error") {
                 console.log("Service responses a error");
-                console.table(res);
+                console.log(res);
                 _this.errorMessage = "invalid user or password";
             }
             else {

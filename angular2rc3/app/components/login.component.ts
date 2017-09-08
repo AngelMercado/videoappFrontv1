@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit{
 	public title:string = "Formulario de Login";
 	public user;
 	public errorMessage:string ="";
-	public sucessMessage:string="";
+	public successMessage:string="";
 	public identity;
 	public data;
 	public status;
@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit{
 
 	}
 	
-	onSubmit(){		
-		console.log("enviando peticion");
+	onSubmit(){				
 		this._loginService.signup(this.user).subscribe(
 				response => {					
 						let res= response;	
@@ -62,7 +61,7 @@ export class LoginComponent implements OnInit{
 						
 						if(this.status != null || this.status =="error"){
 							console.log("Service responses a error");		
-							console.table(res);
+							console.log(res);
 							this.errorMessage = "invalid user or password";
 							
 						}
