@@ -34,12 +34,12 @@ var UserService = (function () {
     UserService.prototype.getIdentity = function () {
         var identity = JSON.parse(localStorage.getItem('identity'));
         if (identity != "undefined") {
-            this.identity = identity;
+            identity = identity;
         }
         else {
-            this.identity = null;
+            identity = null;
         }
-        return this.identity;
+        return identity;
     };
     UserService.prototype.getToken = function () {
         var token = localStorage.getItem('token');

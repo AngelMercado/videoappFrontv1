@@ -25,18 +25,28 @@ var UserEditComponent = (function () {
     }
     UserEditComponent.prototype.ngOnInit = function () {
         var identity = this._loginService.getIdentity();
+        this.ident = identity;
+        console.log(this.ident);
         if (identity == null) {
             console.log("the identity doesn't exists");
             this._router.navigate(["/index"]);
         }
         else {
             console.log("identity exists");
-            this.user = new user_1.User(identity.sub, "user", identity.name, identity.surname, identity.email, identity.password, "null");
+            this.user = new user_1.User(identity.sub, identity.rol, identity.name, identity.surname, identity.email, identity.password, "null");
         }
     };
     UserEditComponent.prototype.onSubmit = function () {
         var _this = this;
-        console.log(this.user);
+        var newPwd;
+        //if password in token is equal user password set null
+        //the api doest not update the password if the password is null		
+        if (this.user.password == this.ident.password) {
+            this.user.password = "";
+        }
+        else {
+            newPwd = this.user.password;
+        }
         this._userService.update(this.user).subscribe(function (response) {
             _this.status = response.status;
             if (_this.status != "success") {
@@ -44,6 +54,13 @@ var UserEditComponent = (function () {
                 console.log(response);
             }
             else {
+                if (_this.user.password == _this.ident.password) {
+                    _this.user.password = _this.ident.password;
+                }
+                else {
+                    _this.user.password = newPwd;
+                }
+                localStorage.setItem('identity', JSON.stringify(_this.user));
                 console.log("user register");
             }
         }, function (error) {

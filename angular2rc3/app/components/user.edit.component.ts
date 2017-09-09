@@ -18,17 +18,20 @@ export class UserEditComponent implements OnInit{
 	public user:User;
 	public errorMessage;
 	public status;
+	public identity;
+	public ident;
 
 	constructor(
 		private _loginService : LoginService,
 		private _userService :  UserService,
 		private _route : ActivatedRoute,
-		private _router : Router
+		private _router : Router		
 		){}
 
 	ngOnInit(){
 		let identity = this._loginService.getIdentity();
-
+		this.ident = identity;
+		console.log(this.ident);
 		if(identity == null){
 			console.log("the identity doesn't exists");
 			this._router.navigate(["/index"]);
@@ -38,7 +41,7 @@ export class UserEditComponent implements OnInit{
 
 			this.user = new User(
 					identity.sub,
-					"user",
+					identity.rol,
 					identity.name,
 					identity.surname,
 					identity.email,
@@ -51,7 +54,14 @@ export class UserEditComponent implements OnInit{
 	}
 
 	onSubmit(){
-		console.log(this.user);
+		let newPwd;
+		//if password in token is equal user password set null
+		//the api doest not update the password if the password is null		
+		if(this.user.password == this.ident.password){
+				this.user.password = "";
+			}else{
+				newPwd= this.user.password;
+			}
 
 		this._userService.update(this.user).subscribe(
 
@@ -60,8 +70,16 @@ export class UserEditComponent implements OnInit{
 				if(this.status != "success"){
 					this.status == "error";
 					console.log(response);
-				}else{					
+				}else{	
+					if(this.user.password == this.ident.password){
+							this.user.password = this.ident.password;
+						}else{
+							this.user.password = newPwd;
+						}		
+					
+					localStorage.setItem('identity',JSON.stringify(this.user));		
 					console.log("user register");
+
 				}
 			},
 			error =>{
