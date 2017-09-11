@@ -44,5 +44,19 @@
 			
 		</p>
 	</form>
+	<div class="">
+		<h4>Imagen de perfil</h4>
+		<p>
+			<input type="file" placeholder="subir imagen" (change)="fileChangeEvent($event)">			
+		</p>
+		<div class="progress">
+			<div id="upload-progress-bar" class="progress-bar progress-bar-sucess" rol="progress-bar" 
+			arial-valuenow ="0"
+			arial-valuemin="0"
+			arial-valur-max="100"
+			style="width: 0%;"></div>
+		</div>
+		<p id="status"></p>
+	</div>
 
 </div>

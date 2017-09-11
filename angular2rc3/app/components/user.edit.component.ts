@@ -2,6 +2,7 @@
 import { Component ,OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { LoginService } from '../service/login.service';
+import { UploadService } from '../service/upload.service';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { User } from '../model/user';
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
@@ -9,7 +10,7 @@ import { User } from '../model/user';
     selector: 'register',
     templateUrl : 'app/view/user-edit.html',
     directives : [ROUTER_DIRECTIVES],
-    providers: [UserService,LoginService]
+    providers: [UserService,LoginService,UploadService]
 })
  
 // Clase del componente donde irán los datos y funcionalidades
@@ -20,10 +21,13 @@ export class UserEditComponent implements OnInit{
 	public status;
 	public identity;
 	public ident;
+	public filesToUpload : Array<File>;
+	public resultUpload;
 
 	constructor(
 		private _loginService : LoginService,
 		private _userService :  UserService,
+		private _uploadService : UploadService,
 		private _route : ActivatedRoute,
 		private _router : Router		
 		){}
@@ -90,6 +94,33 @@ export class UserEditComponent implements OnInit{
 				}
 			}
 		);
+
+
+	}
+	fileChangeEvent(fileInput: any){
+		console.log("file changed");
+		this.filesToUpload = <Array<File>> fileInput.target.files;
+
+		let token = this._loginService.getToken();
+		//later create a file with the constants
+		let url = "http://localhost/videoapp/symphony/web/app_dev.php/user/updateImage";
+
+		this._uploadService.makeFileRequest(token,url,['image'],this.filesToUpload).then(
+			(result) => {
+					this.resultUpload = result;
+					console.log(this.resultUpload);
+					//update image reference in identity
+					let identity = this._loginService.getIdentity();
+					if(identity!="undefined"){
+						identity.image = this.resultUpload.imgPath;
+						//SAVE IDENTITY IN localStorage and update the DOM
+						localStorage.setItem('identity',JSON.stringify(identity));
+						document.getElementById("user-profile-image").setAttribute("src","http://localhost/videoapp/symphony/web/uploads/user/"+identity.image);
+					}
+				},
+			(error) =>{
+				console.log(error);
+			});
 
 
 	}

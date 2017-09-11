@@ -17,10 +17,12 @@ export class DefaultComponent {
 
 	public title:string = "portada";
 
-	constructor(private _loginService :LoginService ){}
+	constructor(private _loginService :LoginService ){
+		this.identity = this._loginService.getIdentity();	
+	}
 
 	ngOnInit(){
 		this.identity = this._loginService.getIdentity();		
-		
+		console.log(this.identity);	
 	}
 }

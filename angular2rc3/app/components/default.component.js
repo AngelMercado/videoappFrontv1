@@ -17,9 +17,11 @@ var DefaultComponent = (function () {
     function DefaultComponent(_loginService) {
         this._loginService = _loginService;
         this.title = "portada";
+        this.identity = this._loginService.getIdentity();
     }
     DefaultComponent.prototype.ngOnInit = function () {
         this.identity = this._loginService.getIdentity();
+        console.log(this.identity);
     };
     DefaultComponent = __decorate([
         core_1.Component({

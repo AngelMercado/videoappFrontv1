@@ -12,13 +12,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var user_service_1 = require('../service/user.service');
 var login_service_1 = require('../service/login.service');
+var upload_service_1 = require('../service/upload.service');
 var router_1 = require('@angular/router');
 var user_1 = require('../model/user');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var UserEditComponent = (function () {
-    function UserEditComponent(_loginService, _userService, _route, _router) {
+    function UserEditComponent(_loginService, _userService, _uploadService, _route, _router) {
         this._loginService = _loginService;
         this._userService = _userService;
+        this._uploadService = _uploadService;
         this._route = _route;
         this._router = _router;
         this.title = "Configuración de usuario";
@@ -70,14 +72,36 @@ var UserEditComponent = (function () {
             }
         });
     };
+    UserEditComponent.prototype.fileChangeEvent = function (fileInput) {
+        var _this = this;
+        console.log("file changed");
+        this.filesToUpload = fileInput.target.files;
+        var token = this._loginService.getToken();
+        //later create a file with the constants
+        var url = "http://localhost/videoapp/symphony/web/app_dev.php/user/updateImage";
+        this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            console.log(_this.resultUpload);
+            //update image reference in identity
+            var identity = _this._loginService.getIdentity();
+            if (identity != "undefined") {
+                identity.image = _this.resultUpload.imgPath;
+                //SAVE IDENTITY IN localStorage and update the DOM
+                localStorage.setItem('identity', JSON.stringify(identity));
+                document.getElementById("user-profile-image").setAttribute("src", "http://localhost/videoapp/symphony/web/uploads/user/" + identity.image);
+            }
+        }, function (error) {
+            console.log(error);
+        });
+    };
     UserEditComponent = __decorate([
         core_1.Component({
             selector: 'register',
             templateUrl: 'app/view/user-edit.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [user_service_1.UserService, login_service_1.LoginService]
+            providers: [user_service_1.UserService, login_service_1.LoginService, upload_service_1.UploadService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
+        __metadata('design:paramtypes', [login_service_1.LoginService, user_service_1.UserService, upload_service_1.UploadService, router_1.ActivatedRoute, router_1.Router])
     ], UserEditComponent);
     return UserEditComponent;
 }());

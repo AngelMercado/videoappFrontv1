@@ -1,3 +1,21 @@
 .main{
 	padding-top: 50px;
 }
+.user-image{
+	width: 35px;
+	height: 35px;
+	overflow: hidden;
+	border-radius: 200px;
+	
+}
+a.user-profile-link{
+	padding-bottom: 8px!important;
+	padding-top: 8px!important;
+}
+.user-image img{
+	margin: 0px;
+	width: 65px;
+	padding: 0px;
+	margin-top: -17px;
+	margin-left: -17px;
+}
