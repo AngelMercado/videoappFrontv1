@@ -28,7 +28,7 @@ export class LoginService{
 			this.identity = null;
 		}
 		return this.identity;
-	}
+	}	
 	getToken(){
 		let token = localStorage.getItem('token');
 		if(token != "undefined"){
