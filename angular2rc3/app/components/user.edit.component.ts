@@ -15,7 +15,7 @@ import { User } from '../model/user';
  
 // Clase del componente donde irán los datos y funcionalidades
 export class UserEditComponent implements OnInit{ 
-	public title:string = "Configuración de usuario";
+	public titlePage:string = "Configuración de usuario";
 	public user:User;
 	public errorMessage;
 	public status;

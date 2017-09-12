@@ -15,7 +15,7 @@ import {LoginService} from '../service/login.service';
 export class DefaultComponent { 
 	public identity;
 
-	public title:string = "portada";
+	public titlePage:string = "portada";
 
 	constructor(private _loginService :LoginService ){
 		this.identity = this._loginService.getIdentity();	

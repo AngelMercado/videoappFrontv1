@@ -23,7 +23,7 @@ var UserEditComponent = (function () {
         this._uploadService = _uploadService;
         this._route = _route;
         this._router = _router;
-        this.title = "Configuración de usuario";
+        this.titlePage = "Configuración de usuario";
     }
     UserEditComponent.prototype.ngOnInit = function () {
         var identity = this._loginService.getIdentity();

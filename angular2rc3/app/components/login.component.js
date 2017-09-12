@@ -18,7 +18,7 @@ var LoginComponent = (function () {
         this._loginService = _loginService;
         this._route = _route;
         this._router = _router;
-        this.title = "Formulario de Login";
+        this.titlePage = "Formulario de Login";
         this.errorMessage = "";
         this.successMessage = "";
     }

@@ -16,7 +16,8 @@ import {Video} from "../model/video";
 // Clase del componente donde irán los datos y funcionalidades
 export class VideoCreateComponent implements OnInit{ 	
 
-	public title:string = "Crear un nuevo video";
+	public titlePage : string = "Crear un nuevo video";
+	public video : Video;
 
 	constructor(private _loginService : LoginService,
 				private _uploadService : UploadService,
@@ -25,7 +26,15 @@ export class VideoCreateComponent implements OnInit{
 
 	ngOnInit(){
 		
-		console.log("VideoCreateComponent loaded");	
+		this.video = new Video(1,"","","public","null","null",null,null);
+	}
+
+	callVideoStatus(value){
+		this.video.status = value;
+	}
+
+	onSubmit(){
+		console.log(this.video);
 	}
 
 }

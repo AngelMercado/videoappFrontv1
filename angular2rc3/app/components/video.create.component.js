@@ -13,6 +13,7 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_service_1 = require('../service/login.service');
 var upload_service_1 = require('../service/upload.service');
+var video_1 = require("../model/video");
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var VideoCreateComponent = (function () {
     function VideoCreateComponent(_loginService, _uploadService, _router, _route) {
@@ -20,10 +21,16 @@ var VideoCreateComponent = (function () {
         this._uploadService = _uploadService;
         this._router = _router;
         this._route = _route;
-        this.title = "Crear un nuevo video";
+        this.titlePage = "Crear un nuevo video";
     }
     VideoCreateComponent.prototype.ngOnInit = function () {
-        console.log("VideoCreateComponent loaded");
+        this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
+    };
+    VideoCreateComponent.prototype.callVideoStatus = function (value) {
+        this.video.status = value;
+    };
+    VideoCreateComponent.prototype.onSubmit = function () {
+        console.log(this.video);
     };
     VideoCreateComponent = __decorate([
         core_1.Component({

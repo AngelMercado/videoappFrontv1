@@ -12,7 +12,7 @@ import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router'
  
 // Clase del componente donde irán los datos y funcionalidades
 export class LoginComponent implements OnInit{ 
-	public title:string = "Formulario de Login";
+	public titlePage:string = "Formulario de Login";
 	public user;
 	public errorMessage:string ="";
 	public successMessage:string="";

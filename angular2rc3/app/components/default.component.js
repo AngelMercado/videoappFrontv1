@@ -16,7 +16,7 @@ var login_service_1 = require('../service/login.service');
 var DefaultComponent = (function () {
     function DefaultComponent(_loginService) {
         this._loginService = _loginService;
-        this.title = "portada";
+        this.titlePage = "portada";
         this.identity = this._loginService.getIdentity();
     }
     DefaultComponent.prototype.ngOnInit = function () {
