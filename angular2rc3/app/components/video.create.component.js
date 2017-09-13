@@ -24,6 +24,7 @@ var VideoCreateComponent = (function () {
         this._router = _router;
         this._route = _route;
         this.titlePage = "Crear un nuevo video";
+        this.uploadImage = false;
     }
     VideoCreateComponent.prototype.ngOnInit = function () {
         this.video = new video_1.Video(1, "", "", "public", "null", "null", null, null);
@@ -50,6 +51,24 @@ var VideoCreateComponent = (function () {
             if (_this.errorMessage != null) {
                 console.log("Error en la peticion");
             }
+        });
+    };
+    VideoCreateComponent.prototype.fileChangeImage = function (fileInput) {
+        var _this = this;
+        console.log("file changed");
+        this.filesToUpload = fileInput.target.files;
+        var token = this._loginService.getToken();
+        //later create a file with the constants
+        var url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/" + this.video.Id;
+        this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            var pathImage = (_this.resultUpload.pathImage != null) ? _this.resultUpload.pathImage : null;
+            console.log(_this.resultUpload);
+            //set image into current video object 					
+            _this.video.image = pathImage;
+            console.log(_this.video);
+        }, function (error) {
+            console.log(error);
         });
     };
     VideoCreateComponent = __decorate([
