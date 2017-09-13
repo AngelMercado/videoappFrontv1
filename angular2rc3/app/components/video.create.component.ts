@@ -21,6 +21,10 @@ export class VideoCreateComponent implements OnInit{
 	public video;
 	public status;
 	public errorMessage;
+	public resultUpload;
+	public uploadImage : boolean = false;
+	public filesToUpload : Array<File>;
+
 
 	constructor(private _loginService : LoginService,
 				private _uploadService : UploadService,
@@ -59,6 +63,30 @@ export class VideoCreateComponent implements OnInit{
 					}
 				}
 			);
+
+	}
+	fileChangeImage(fileInput: any){
+		console.log("file changed");
+		this.filesToUpload =  <Array<File>>fileInput.target.files;
+
+		let token = this._loginService.getToken();
+		//later create a file with the constants
+		let url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/"+this.video.Id;
+
+		this._uploadService.makeFileRequest(token,url,['image'],this.filesToUpload).then(
+			(result) => {
+					this.resultUpload = result;
+					let pathImage = (this.resultUpload.pathImage != null) ? this.resultUpload.pathImage : null;
+					console.log(this.resultUpload);
+					//set image into current video object 					
+					this.video.image = pathImage;
+					console.log(this.video);
+
+				},
+			(error) =>{
+				console.log(error);
+			});
+
 
 	}
 

@@ -2,10 +2,10 @@
 	<hr>
 	<h1>{{titlePage}}</h1>
 	<hr>
-	<div class="alert alert-success" *ngIf="status =='success'">
+	<div class="alert alert-success" *ngIf=" status == 'success' ">
 		Información de tu video  <strong>{{video.title}}</strong> guardada.
 	</div>
-	<div class="alert alert-danger">
+	<div class="alert alert-danger" *ngIf=" status == 'error' ">
 		Ocurrio un error, porfavor intenta más tarde.
 	</div>
 	<form #newVideoForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4" *ngIf="status != 'success' " >		
@@ -31,4 +31,24 @@
 		</p>
 		<input type="submit" value="Crear video" name="" class="btn btn-success">
 	</form>
+
+	<div class="col-md-4" *ngIf=" status=='success' && uploadImage == false ">
+		<h4>Imagen del video</h4>		
+		<p>Paso 2 de 3. Sube la imagen del video</p>
+		<p>
+			<input type="file" placeholder="Subir imagen" (change)="fileChangeImage($event)">
+				
+		</p>
+
+		<div class="progress">
+			<div id="upload-progress-bar" class="progress-bar progress-bar-sucess" rol="progress-bar" 
+			arial-valuenow ="0"
+			arial-valuemin="0"
+			arial-valur-max="100"
+			style="width: 0%;"></div>
+		</div>
+		<p id="status"></p>
+
+		<button class="btn btn-default" (click) = "nextUploadVideo($event)">Continuar</button>
+	</div>
 </div>
