@@ -13,12 +13,14 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_service_1 = require('../service/login.service');
 var upload_service_1 = require('../service/upload.service');
+var video_service_1 = require('../service/video.service');
 var video_1 = require("../model/video");
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var VideoCreateComponent = (function () {
-    function VideoCreateComponent(_loginService, _uploadService, _router, _route) {
+    function VideoCreateComponent(_loginService, _uploadService, _videoService, _router, _route) {
         this._loginService = _loginService;
         this._uploadService = _uploadService;
+        this._videoService = _videoService;
         this._router = _router;
         this._route = _route;
         this.titlePage = "Crear un nuevo video";
@@ -30,16 +32,34 @@ var VideoCreateComponent = (function () {
         this.video.status = value;
     };
     VideoCreateComponent.prototype.onSubmit = function () {
-        console.log(this.video);
+        var _this = this;
+        var token = this._loginService.getToken();
+        this._videoService.createVideo(token, this.video).subscribe(function (response) {
+            console.log(response);
+            _this.status = (response.status != null) ? response.status : null;
+            if (_this.status != "success") {
+                _this.status = "error";
+            }
+            else {
+                _this.video = response.data;
+                console.log(_this.video);
+            }
+        }, function (error) {
+            console.log("Error en la peticion");
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log("Error en la peticion");
+            }
+        });
     };
     VideoCreateComponent = __decorate([
         core_1.Component({
             selector: 'video-new',
             templateUrl: 'app/view/video-create.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService, upload_service_1.UploadService]
+            providers: [login_service_1.LoginService, upload_service_1.UploadService, video_service_1.VideoService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, upload_service_1.UploadService, router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [login_service_1.LoginService, upload_service_1.UploadService, video_service_1.VideoService, router_1.Router, router_1.ActivatedRoute])
     ], VideoCreateComponent);
     return VideoCreateComponent;
 }());

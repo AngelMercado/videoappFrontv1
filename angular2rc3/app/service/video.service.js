@@ -9,13 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 require("rxjs/add/operator/map");
 var VideoService = (function () {
-    function VideoService() {
+    function VideoService(_http) {
+        this._http = _http;
+        //note: add constants later
+        this.url = "http://localhost/videoapp/symphony/web/app_dev.php";
     }
+    VideoService.prototype.createVideo = function (token, video) {
+        var json = JSON.stringify(video);
+        var params = "json=" + json + "&authorization=" + token;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.post(this.url + "/video/create", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     VideoService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], VideoService);
     return VideoService;
 }());
