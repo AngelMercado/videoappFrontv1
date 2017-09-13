@@ -2,7 +2,14 @@
 	<hr>
 	<h1>{{titlePage}}</h1>
 	<hr>
-	<form #newVideoForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4">		
+	<div class="alert alert-success" *ngIf="status =='success'">
+		Información de tu video  <strong>{{video.title}}</strong> guardada.
+	</div>
+	<div class="alert alert-danger">
+		Ocurrio un error, porfavor intenta más tarde.
+	</div>
+	<form #newVideoForm = "ngForm" (ngSubmit)="onSubmit()" class="col-md-4" *ngIf="status != 'success' " >		
+		<p>Paso 1 de 3. Añade la información del video. Ahora añade una imagen y un video</p>
 		<p>
 			<label>Titulo:</label>
 			<input type="text" class="form-control" #title="ngForm" ngControl="title" [(ngModel)]="video.title" required="">
