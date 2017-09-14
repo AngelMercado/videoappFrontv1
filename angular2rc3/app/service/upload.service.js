@@ -50,7 +50,7 @@ var UploadService = (function () {
                 //change the value of the progressBar
                 document.getElementById("upload-progress-bar").setAttribute("value", prc);
                 document.getElementById("upload-progress-bar").style.width = prc + "%";
-                document.getElementById("status").innerHTML = Math.round(percent) + " % subido porfavor espera a que termine";
+                document.getElementById("status").innerHTML = Math.round(percent) + " % subiendo porfavor espera a que termine";
             }, false);
             //add Listener to xhr when is load
             xhr.addEventListener("load", function () {

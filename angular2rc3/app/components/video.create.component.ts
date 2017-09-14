@@ -71,7 +71,7 @@ export class VideoCreateComponent implements OnInit{
 
 		let token = this._loginService.getToken();
 		//later create a file with the constants
-		let url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/"+this.video.Id;
+		let url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/"+this.video.videoid;
 
 		this._uploadService.makeFileRequest(token,url,['image'],this.filesToUpload).then(
 			(result) => {
@@ -88,6 +88,31 @@ export class VideoCreateComponent implements OnInit{
 			});
 
 
+	}
+	nextUploadVideo(){
+		this.uploadImage = true;
+	}
+	fileChangeVideo(fileInput: any){
+		console.log("file changed");
+		this.filesToUpload =  <Array<File>>fileInput.target.files;
+
+		let token = this._loginService.getToken();
+		//later create a file with the constants
+		let url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/"+this.video.videoid;
+
+		this._uploadService.makeFileRequest(token,url,['video'],this.filesToUpload).then(
+			(result) => {
+					this.resultUpload = result;
+					console.log(this.resultUpload);
+				},
+			(error) =>{
+				console.log(error);
+			});
+
+
+	}
+	redirectToVideo(){
+		this._router.navigate(['/index']);
 	}
 
 }
