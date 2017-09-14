@@ -10,6 +10,8 @@ export class VideoService{
 	public url = "http://localhost/videoapp/symphony/web/app_dev.php";
 	public identity;
 	public token;
+	public files : Array<File>;
+	public resultUpload;
 
 	constructor(private _http: Http){}
 
@@ -22,4 +24,5 @@ export class VideoService{
 		return this._http.post(this.url+"/video/create",params,{headers:headers})
 				.map(res=>res.json());
 	}
+
 }

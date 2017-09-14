@@ -59,7 +59,7 @@ var VideoCreateComponent = (function () {
         this.filesToUpload = fileInput.target.files;
         var token = this._loginService.getToken();
         //later create a file with the constants
-        var url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/" + this.video.Id;
+        var url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/" + this.video.videoid;
         this._uploadService.makeFileRequest(token, url, ['image'], this.filesToUpload).then(function (result) {
             _this.resultUpload = result;
             var pathImage = (_this.resultUpload.pathImage != null) ? _this.resultUpload.pathImage : null;
@@ -70,6 +70,26 @@ var VideoCreateComponent = (function () {
         }, function (error) {
             console.log(error);
         });
+    };
+    VideoCreateComponent.prototype.nextUploadVideo = function () {
+        this.uploadImage = true;
+    };
+    VideoCreateComponent.prototype.fileChangeVideo = function (fileInput) {
+        var _this = this;
+        console.log("file changed");
+        this.filesToUpload = fileInput.target.files;
+        var token = this._loginService.getToken();
+        //later create a file with the constants
+        var url = "http://localhost/videoapp/symphony/web/app_dev.php/video/uploadFiles/" + this.video.videoid;
+        this._uploadService.makeFileRequest(token, url, ['video'], this.filesToUpload).then(function (result) {
+            _this.resultUpload = result;
+            console.log(_this.resultUpload);
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    VideoCreateComponent.prototype.redirectToVideo = function () {
+        this._router.navigate(['/index']);
     };
     VideoCreateComponent = __decorate([
         core_1.Component({

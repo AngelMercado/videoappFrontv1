@@ -51,4 +51,23 @@
 
 		<button class="btn btn-default" (click) = "nextUploadVideo($event)">Continuar</button>
 	</div>
+	<div class="col-md-4" *ngIf=" status=='success' && uploadImage == true ">
+		<h4>Subir video</h4>		
+		<p>Paso 3 de 3. Subir Video</p>
+		<p>
+			<input type="file" placeholder="Subir Video" (change)="fileChangeVideo($event)">
+				
+		</p>
+
+		<div class="progress">
+			<div id="upload-progress-bar" class="progress-bar progress-bar-sucess" rol="progress-bar" 
+			arial-valuenow ="0"
+			arial-valuemin="0"
+			arial-valur-max="100"
+			style="width: 0%;"></div>
+		</div>
+		<p id="status"></p>
+
+		<button class="btn btn-default" (click) = "redirectToVideo()">Continuar</button>
+	</div>
 </div>
