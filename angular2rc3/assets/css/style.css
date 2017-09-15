@@ -19,3 +19,10 @@ a.user-profile-link{
 	margin-top: -17px;
 	margin-left: -17px;
 }
+#video-player{
+	width: 100%;
+	
+}
+.video-data {
+	margin-top: 15px;
+}

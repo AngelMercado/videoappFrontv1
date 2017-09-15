@@ -1,12 +1,23 @@
 <div class="loader" *ngIf="loading=='show'"><img src="assets/images/ajax-gray.gif" /></div>
 <div class="col-md-12" *ngIf="video">
-	
-	<h1>{{title}} </h1>
-	
+	<hr/>
+	<h3>{{video.title}}</h3>
+	<hr/>
 	<div class="col-md-8">
 		<video controls="" id="video-player">
 			<source src="http://localhost/videoapp/symphony/web/{{video.videopath}}">
 			Tu navegador no soporta este tipo de videos
 		</video>
+		<div class="panel panel-default video-data">
+			<div class="panel-heading">
+				<h3 class="panel-title">{{video.title}}</h3>
+				Subido por <strong>{{video.user.name}} {{video.user.surname}}</strong>
+				el {{video.createdAt.timestamp}}
+			</div>
+			<div class="panel-body">
+				{{video.description}}
+			</div>
+		</div>
 	</div>
+	
 </div>
