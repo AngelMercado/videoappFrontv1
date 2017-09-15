@@ -66,7 +66,7 @@ export class VideoCreateComponent implements OnInit{
 
 	}
 	fileChangeImage(fileInput: any){
-		console.log("file changed");
+		console.log("file changed Image");
 		this.filesToUpload =  <Array<File>>fileInput.target.files;
 
 		let token = this._loginService.getToken();
@@ -93,7 +93,7 @@ export class VideoCreateComponent implements OnInit{
 		this.uploadImage = true;
 	}
 	fileChangeVideo(fileInput: any){
-		console.log("file changed");
+		console.log("file changed Video");
 		this.filesToUpload =  <Array<File>>fileInput.target.files;
 
 		let token = this._loginService.getToken();
