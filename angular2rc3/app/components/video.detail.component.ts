@@ -19,6 +19,7 @@ export class VideoDetailComponent implements OnInit{
 	public video;
 	public errorMessage;
 	public status;
+	public loading = 'show';
 
 	constructor(
 		private _loginService : LoginService,
@@ -41,6 +42,7 @@ export class VideoDetailComponent implements OnInit{
 							}else{
 								this.video = response.data;
 							}
+							this.loading = 'hiden';
 						},
 					error=>{
 						this.errorMessage = <any> error;

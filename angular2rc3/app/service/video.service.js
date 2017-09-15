@@ -25,7 +25,7 @@ var VideoService = (function () {
             .map(function (res) { return res.json(); });
     };
     VideoService.prototype.getVideo = function (videoId) {
-        return this._http.get(this.url + "/video/detail" + videoId)
+        return this._http.get(this.url + "/video/detail/" + videoId)
             .map(function (res) { return res.json(); });
     };
     VideoService = __decorate([

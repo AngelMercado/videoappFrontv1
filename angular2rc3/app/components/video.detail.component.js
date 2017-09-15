@@ -19,6 +19,7 @@ var VideoDetailComponent = (function () {
         this._route = _route;
         this._router = _router;
         this.title = "Detalle del video";
+        this.loading = 'show';
     }
     VideoDetailComponent.prototype.ngOnInit = function () {
         //get id from url path
@@ -34,6 +35,7 @@ var VideoDetailComponent = (function () {
                 else {
                     _this.video = response.data;
                 }
+                _this.loading = 'hiden';
             }, function (error) {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {
