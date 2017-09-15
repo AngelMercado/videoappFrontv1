@@ -55,7 +55,7 @@ var VideoCreateComponent = (function () {
     };
     VideoCreateComponent.prototype.fileChangeImage = function (fileInput) {
         var _this = this;
-        console.log("file changed");
+        console.log("file changed Image");
         this.filesToUpload = fileInput.target.files;
         var token = this._loginService.getToken();
         //later create a file with the constants
@@ -76,7 +76,7 @@ var VideoCreateComponent = (function () {
     };
     VideoCreateComponent.prototype.fileChangeVideo = function (fileInput) {
         var _this = this;
-        console.log("file changed");
+        console.log("file changed Video");
         this.filesToUpload = fileInput.target.files;
         var token = this._loginService.getToken();
         //later create a file with the constants

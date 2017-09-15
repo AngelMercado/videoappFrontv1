@@ -4,6 +4,7 @@ import { DefaultComponent } from './components/default.component';
 import { RegisterComponent } from './components/register.component';
 import { UserEditComponent } from './components/user.edit.component';
 import { VideoCreateComponent } from './components/video.create.component';
+import { VideoDetailComponent} from './components/video.detail.component';
 export const routes: RouterConfig = [
 	{
 		path: '',
@@ -15,7 +16,8 @@ export const routes: RouterConfig = [
  	{path: 'login/:id', component : LoginComponent},
  	{path: 'register', component : RegisterComponent},
  	{path: 'user/edit', component : UserEditComponent},
- 	{path: 'video/create', component : VideoCreateComponent}
+ 	{path: 'video/create', component : VideoCreateComponent},
+ 	{path: 'video/:id',component: VideoDetailComponent}
 
 ];
 

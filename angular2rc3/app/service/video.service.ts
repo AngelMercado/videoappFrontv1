@@ -25,4 +25,9 @@ export class VideoService{
 				.map(res=>res.json());
 	}
 
+	getVideo(videoId){
+		return this._http.get(this.url+"/video/detail"+videoId)
+					.map(res=>res.json());
+	}
+
 }
