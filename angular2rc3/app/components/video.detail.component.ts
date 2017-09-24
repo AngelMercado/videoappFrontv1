@@ -2,6 +2,7 @@ import { Component , OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '../service/login.service';
 import { VideoService } from "../service/video.service";
+import { GenerateDatePipe } from "../pipes/generate.date.pipe";
 import { User } from "../model/user";
 import {Video} from "../model/video";
 
@@ -9,7 +10,8 @@ import {Video} from "../model/video";
 	selector: "video-detail",
 	templateUrl: "app/view/video-detail.html",
 	directives: [ROUTER_DIRECTIVES],
-	providers: [LoginService,VideoService]
+	providers: [LoginService,VideoService],
+	pipes: [GenerateDatePipe]
 
 })	
 
