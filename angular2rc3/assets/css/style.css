@@ -42,6 +42,7 @@ li.last-video-item{
 .last-video-item .last-video-image-thumb{
 	overflow: hidden;
 	background: gray;
+	padding: 0px;
 }
 
 .last-video-item .last-video-image-thumb img{

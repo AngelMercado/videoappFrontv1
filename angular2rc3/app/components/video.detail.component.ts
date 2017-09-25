@@ -36,6 +36,7 @@ export class VideoDetailComponent implements OnInit{
 
 		this._route.params.subscribe(
 			params => { 
+				this.loading= 'show';
 				let id = +params["id"];
 				//get videoDetail
 				this.videoId = id; 
@@ -67,6 +68,7 @@ export class VideoDetailComponent implements OnInit{
 						if(this.statusLastVideos != "success"){
 							this._router.navigate(["/index"]);
 						}
+						this.loading = 'hiden';
 					},
 					error=>{
 

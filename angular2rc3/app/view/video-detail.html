@@ -1,5 +1,5 @@
 <div class="loader" *ngIf="loading=='show'"><img src="assets/images/ajax-gray.gif" /></div>
-<div class="col-md-12" *ngIf="video">
+<div class="col-md-12" *ngIf="video && loading=='hiden' ">
 	<hr/>
 	<h3>{{video.title}}</h3>
 	<hr/>

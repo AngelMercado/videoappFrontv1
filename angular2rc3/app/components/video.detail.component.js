@@ -26,6 +26,7 @@ var VideoDetailComponent = (function () {
         //get id from url path
         var _this = this;
         this._route.params.subscribe(function (params) {
+            _this.loading = 'show';
             var id = +params["id"];
             //get videoDetail
             _this.videoId = id;
@@ -51,6 +52,7 @@ var VideoDetailComponent = (function () {
                 if (_this.statusLastVideos != "success") {
                     _this._router.navigate(["/index"]);
                 }
+                _this.loading = 'hiden';
             }, function (error) {
                 _this.errorMessage = error;
                 if (_this.errorMessage != null) {
