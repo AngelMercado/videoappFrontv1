@@ -27,6 +27,7 @@ var VideoDetailComponent = (function () {
         var _this = this;
         this._route.params.subscribe(function (params) {
             var id = +params["id"];
+            //get videoDetail
             _this.videoId = id;
             _this._videoService.getVideo(id).subscribe(function (response) {
                 _this.status = response.status;
@@ -43,8 +44,20 @@ var VideoDetailComponent = (function () {
                     alert(_this.errorMessage);
                 }
             });
+            //get last Videos
+            _this._videoService.getLastVideos().subscribe(function (response) {
+                _this.lastVideos = response.data;
+                _this.statusLastVideos = response.status;
+                if (_this.statusLastVideos != "success") {
+                    _this._router.navigate(["/index"]);
+                }
+            }, function (error) {
+                _this.errorMessage = error;
+                if (_this.errorMessage != null) {
+                    alert(_this.errorMessage);
+                }
+            });
         });
-        console.log("detail component loaded");
     };
     VideoDetailComponent = __decorate([
         core_1.Component({

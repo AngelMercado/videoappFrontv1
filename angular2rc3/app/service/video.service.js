@@ -28,6 +28,10 @@ var VideoService = (function () {
         return this._http.get(this.url + "/video/detail/" + videoId)
             .map(function (res) { return res.json(); });
     };
+    VideoService.prototype.getLastVideos = function () {
+        return this._http.get(this.url + "/video/lastVideos")
+            .map(function (res) { return res.json(); });
+    };
     VideoService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

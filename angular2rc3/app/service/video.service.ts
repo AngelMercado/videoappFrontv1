@@ -30,4 +30,9 @@ export class VideoService{
 					.map(res=>res.json());
 	}
 
+	getLastVideos(){
+		return this._http.get(this.url+"/video/lastVideos")
+				.map(res=>res.json());
+	}
+
 }
