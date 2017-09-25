@@ -26,10 +26,13 @@
 		<hr/>
 		<ul id="videos-list" *ngIf = "lastVideos">
 			<li *ngFor = "let video of lastVideos" class="last-video-item col-md-12 pull-left">
-				<div class="last-video-image-thumb col-md-4 pull-left">
+				<div class="last-video-image-thumb col-md-6 pull-left">
 					<img src="http://localhost/videoapp/symphony/web/{{video.image}}" *ngIf="video.image">
 				</div>
-				<h4>{{video.title}}</h4>
+				<div class="col-md-6">
+					<h5><a [routerLink] = "['/video',video.videoid]">{{video.title}}</a></h5>
+					<a >{{video.user.name}} {{video.user.surname}}</a>
+				</div>
 			</li>
 		</ul>
 	</aside> 
