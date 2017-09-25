@@ -1,5 +1,5 @@
 <div class="loader" *ngIf="loading=='show'"><img src="assets/images/ajax-gray.gif" /></div>
-<div class="col-md-12" *ngIf="video">
+<div class="col-md-12" *ngIf="video && loading=='hiden' ">
 	<hr/>
 	<h3>{{video.title}}</h3>
 	<hr/>
@@ -8,16 +8,37 @@
 			<source src="http://localhost/videoapp/symphony/web/{{video.videopath}}">
 			Tu navegador no soporta este tipo de videos
 		</video>
+
 		<div class="panel panel-default video-data">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{video.title}}</h3>
 				Subido por <strong>{{video.user.name}} {{video.user.surname}}</strong>
-				el {{video.createdAt.timestamp}}
+				el {{video.createdAt.timestamp | generateDate}}
 			</div>
 			<div class="panel-body">
 				{{video.description}}
 			</div>
 		</div>
+
+		<!-- CommentComponent -->
+
+		<comments *ngIf = "identity"></comments>
+	
 	</div>
+	<aside class="col-md-4">
+		<h4>Videos</h4>
+		<hr/>
+		<ul id="videos-list" *ngIf = "lastVideos">
+			<li *ngFor = "let video of lastVideos" class="last-video-item col-md-12 pull-left">
+				<div class="last-video-image-thumb col-md-6 pull-left">
+					<img src="http://localhost/videoapp/symphony/web/{{video.image}}" *ngIf="video.image">
+				</div>
+				<div class="col-md-6">
+					<h5><a [routerLink] = "['/video',video.videoid]">{{video.title}}</a></h5>
+					<a >{{video.user.name}} {{video.user.surname}}</a>
+				</div>
+			</li>
+		</ul>
+	</aside> 
 	
 </div>
