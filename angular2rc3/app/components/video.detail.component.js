@@ -13,6 +13,7 @@ var router_1 = require('@angular/router');
 var login_service_1 = require('../service/login.service');
 var video_service_1 = require("../service/video.service");
 var generate_date_pipe_1 = require("../pipes/generate.date.pipe");
+var comment_component_1 = require("../components/comment.component");
 var VideoDetailComponent = (function () {
     function VideoDetailComponent(_loginService, _videoService, _route, _router) {
         this._loginService = _loginService;
@@ -23,8 +24,9 @@ var VideoDetailComponent = (function () {
         this.loading = 'show';
     }
     VideoDetailComponent.prototype.ngOnInit = function () {
-        //get id from url path
         var _this = this;
+        this.identity = this._loginService.getIdentity();
+        //get id from url path
         this._route.params.subscribe(function (params) {
             _this.loading = 'show';
             var id = +params["id"];
@@ -65,7 +67,7 @@ var VideoDetailComponent = (function () {
         core_1.Component({
             selector: "video-detail",
             templateUrl: "app/view/video-detail.html",
-            directives: [router_1.ROUTER_DIRECTIVES],
+            directives: [router_1.ROUTER_DIRECTIVES, comment_component_1.CommentComponent],
             providers: [login_service_1.LoginService, video_service_1.VideoService],
             pipes: [generate_date_pipe_1.GenerateDatePipe]
         }), 
