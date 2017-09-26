@@ -21,6 +21,19 @@ var CommentComponent = (function () {
         this.titleComments = "Comentarios";
     }
     CommentComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var id = null;
+        this.identity = this._loginService.getIdentity();
+        this._route.params.subscribe(function (params) {
+            id = +params["id"];
+            _this.comment = {
+                "video_id": id,
+                "body": ""
+            };
+        });
+    };
+    CommentComponent.prototype.onSubmit = function () {
+        console.log(this.comment);
     };
     CommentComponent = __decorate([
         core_1.Component({
