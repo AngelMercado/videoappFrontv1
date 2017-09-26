@@ -1,3 +1,13 @@
 <hr/>
 <h4>{{titleComments}}</h4>
+<form #newCommentForm="ngForm" (ngSubmit)="onSubmit()" class="col-md-6">
+		<input type="hidden" #video_id="ngForm" [(ngModel)] = "comment.video_id" required="">
+		<p>
+			<textarea class="form-control" #body="ngForm" ngControl="body" [(ngModel)]="comment.body" required=""></textarea>			
+		</p>
+		<span *ngIf=" ! body.valid && body.touched ">
+			Coloca el comentario porfavor
+		</span>
+		<input type="submit" value="Comentar" class="btn btn-success">
+</form>
 <hr/>
