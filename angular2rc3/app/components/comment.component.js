@@ -12,13 +12,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_service_1 = require('../service/login.service');
+var comment_service_1 = require('../service/comment.service');
 // Decorador component, indicamos en que etiqueta se va a cargar la plantilla
 var CommentComponent = (function () {
-    function CommentComponent(_loginService, _router, _route) {
+    function CommentComponent(_loginService, _commentService, _router, _route) {
         this._loginService = _loginService;
+        this._commentService = _commentService;
         this._router = _router;
         this._route = _route;
         this.titleComments = "Comentarios";
+        this.comment = {};
     }
     CommentComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -33,16 +36,37 @@ var CommentComponent = (function () {
         });
     };
     CommentComponent.prototype.onSubmit = function () {
-        console.log(this.comment);
+        var _this = this;
+        console.log("algo");
+        var token = this._loginService.getToken();
+        this._commentService.create(token, this.comment).subscribe(function (response) {
+            console.log(response);
+            _this.status = (response.status != null) ? response.status : null;
+            if (_this.status != "success") {
+                _this.status = "error";
+            }
+            else {
+                _this.comment = {
+                    "video_id": "",
+                    "body": ""
+                };
+            }
+        }, function (error) {
+            console.log("Error en la peticion");
+            _this.errorMessage = error;
+            if (_this.errorMessage != null) {
+                console.log("Error en la peticion");
+            }
+        });
     };
     CommentComponent = __decorate([
         core_1.Component({
             selector: 'comments',
             templateUrl: 'app/view/comments.html',
             directives: [router_1.ROUTER_DIRECTIVES],
-            providers: [login_service_1.LoginService]
+            providers: [login_service_1.LoginService, comment_service_1.CommentService]
         }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [login_service_1.LoginService, comment_service_1.CommentService, router_1.Router, router_1.ActivatedRoute])
     ], CommentComponent);
     return CommentComponent;
 }());
