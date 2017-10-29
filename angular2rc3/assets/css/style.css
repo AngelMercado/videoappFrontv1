@@ -1,6 +1,12 @@
 .main{
 	padding-top: 50px;
 }
+.loader{
+	margin-bottom: 10px;
+}
+.pointer{
+	cursor: pointer;
+}
 .user-image{
 	width: 35px;
 	height: 35px;

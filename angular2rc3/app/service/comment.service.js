@@ -17,10 +17,22 @@ var CommentService = (function () {
         this.url = "http://localhost/videoapp/symphony/web/app_dev.php";
     }
     CommentService.prototype.create = function (token, comment) {
+        console.log("comentario antes de guardar");
+        console.log(comment);
         var json = JSON.stringify(comment);
         var params = "json=" + json + "&authorization=" + token;
         var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         return this._http.post(this.url + "/comment/create", params, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    CommentService.prototype.getCommentsofVideo = function (video_id) {
+        return this._http.get(this.url + "/comment/list/" + video_id)
+            .map(function (res) { return res.json(); });
+    };
+    CommentService.prototype.delete = function (token, comment_id) {
+        var params = "authorization=" + token;
+        var headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        return this._http.delete(this.url + "/comment/delete/" + comment_id, new http_1.RequestOptions({ headers: headers, body: params }))
             .map(function (res) { return res.json(); });
     };
     CommentService = __decorate([
