@@ -12,6 +12,7 @@ export const routes: RouterConfig = [
 		terminal: true
 	},
  	{path: 'index', component : DefaultComponent},
+ 	{path: 'index/:page', component : DefaultComponent},
  	{path: 'login', component : LoginComponent},
  	{path: 'login/:id', component : LoginComponent},
  	{path: 'register', component : RegisterComponent},

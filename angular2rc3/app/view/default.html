@@ -7,4 +7,25 @@
 	<div *ngIf=" identity || identity !=null">
 		Bienvenido {{identity.name}}, <a [routerLink] = "['/index']">entra en tu canal</a> o <a [routerLink]="['/index']">Sube un video</a>
 	</div>
+	<hr/>
+	<div class="all-video" >
+		<ul id="video-list">
+			<li *ngFor="let video of videos" class="video-item col-md-3 pull-left">
+				<div class="video-image-thumb">
+					<img src="http://localhost/videoapp/symphony/web/{{video.image}}" *ngIf="video.image">
+				</div>
+				<div class="data">
+					<h4><a [routerLink]="['/video',video.videoid]">{{video.title}}</a></h4>
+					<p><a  [routerLink]="['/index']">{{video.user.name}} {{video.user.surname}}</a> * {{video.createdAt.timestamp | generateDate}}</p>
+					<p>56 K views</p>
+					<div *ngIf="identity && identity != null && identity.sub == video.user.userid">
+						<a [routerLink]="['/index']" class="btn btn-primary">Editar</a>
+					</div>					
+				</div>
+				<div class="clear-fix"></div>
+
+				
+			</li>
+		</ul>
+	</div>
 </div>
