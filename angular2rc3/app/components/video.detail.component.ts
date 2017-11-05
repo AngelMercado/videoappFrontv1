@@ -5,7 +5,7 @@ import { VideoService } from "../service/video.service";
 import { GenerateDatePipe } from "../pipes/generate.date.pipe";
 import { CommentComponent } from "../components/comment.component";
 import { User } from "../model/user";
-import {Video} from "../model/video";
+import { Video } from "../model/video";
 
 
 @Component({

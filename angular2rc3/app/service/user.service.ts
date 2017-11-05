@@ -9,7 +9,7 @@ export class UserService{
 	public url = "http://localhost/videoapp/symphony/web/app_dev.php";
 	public identity;
 	public token;
-
+  
 	constructor(private _http: Http){}
 	register(user){
 		let json = JSON.stringify(user);

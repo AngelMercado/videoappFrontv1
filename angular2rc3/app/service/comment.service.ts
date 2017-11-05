@@ -15,6 +15,7 @@ export class CommentService{
 
 	create(token,comment){
 		console.log("comentario antes de guardar");
+		
 		console.log(comment);
 		let json = JSON.stringify(comment);
 		let params = "json="+json+"&authorization="+token;
@@ -29,14 +30,15 @@ export class CommentService{
 	getCommentsofVideo(video_id){
 		return this._http.get(this.url+"/comment/list/"+video_id)
 				.map(res=>res.json());
+
 	}
 
 	delete(token,comment_id){
 		let params = "authorization="+token;
 		let headers = new Headers({'Content-Type':'application/x-www-form-urlencoded'});
 
-		return this._http.delete(this.url+"/comment/delete/"+comment_id ,new RequestOptions(
-			{headers: headers,body: params))
+		return this._http.delete(this.url+"/comment/delete/"+comment_id ,new RequestOptions( 
+			{headers: headers, body:params }))
 				.map(res=>res.json());
 	}
 }
