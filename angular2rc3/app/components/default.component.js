@@ -26,6 +26,7 @@ var DefaultComponent = (function () {
     }
     DefaultComponent.prototype.ngOnInit = function () {
         this.identity = this._loginService.getIdentity();
+        this.loading = "show";
         this.getAllVideos();
         console.log(this.identity);
     };
@@ -44,6 +45,7 @@ var DefaultComponent = (function () {
                 }
                 else {
                     _this.videos = response.data;
+                    _this.loading = "hide";
                 }
             }, function (error) {
                 _this.errorMessage = error;
