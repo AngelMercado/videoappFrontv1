@@ -40,7 +40,7 @@ export class DefaultComponent {
 	getAllVideos(){
 		this._route.params.subscribe(params=>{
 			  let page = +params["page"];
-			  
+			  console.log(page);
 			  if(page == null){
 			  	page = 1;
 			  }

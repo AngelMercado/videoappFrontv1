@@ -34,6 +34,7 @@ var DefaultComponent = (function () {
         var _this = this;
         this._route.params.subscribe(function (params) {
             var page = +params["page"];
+            console.log(page);
             if (page == null) {
                 page = 1;
             }

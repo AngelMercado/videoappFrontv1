@@ -33,11 +33,10 @@ var VideoService = (function () {
             .map(function (res) { return res.json(); });
     };
     VideoService.prototype.getVideos = function (page) {
-        if (page === void 0) { page = null; }
         if (page == null) {
             page = 1;
         }
-        return this._http.get(this.url + "/video/list?page" + page)
+        return this._http.get(this.url + "/video/list?page=" + page)
             .map(function (res) { return res.json(); });
     };
     VideoService = __decorate([
